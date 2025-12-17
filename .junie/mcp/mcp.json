@@ -1,0 +1,11 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "/Users/naotheone/Library/Application Support/Herd/bin/php84",
+            "args": [
+                "/Users/naotheone/Documents/Developments/LARAVEL/test-dokploy/artisan",
+                "boost:mcp"
+            ]
+        }
+    }
+}
