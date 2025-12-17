@@ -39,9 +39,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         zip \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=vendor /app/vendor ./vendor
-
-COPY . .
+COPY --from=node /app .
 
 RUN chown -R www-data:www-data \
     storage bootstrap/cache
