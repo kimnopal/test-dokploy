@@ -2,7 +2,7 @@ FROM node:25-alpine AS npm
 
 WORKDIR /app
 
-COPY . .
+COPY . ./
 RUN npm install && npm run build
 
 FROM nginx:alpine
