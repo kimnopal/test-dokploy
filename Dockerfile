@@ -10,14 +10,6 @@ RUN composer install \
     --no-interaction \
     --optimize-autoloader
 
-FROM node:25-alpine AS node
-
-WORKDIR /app
-
-COPY --from=vendor /app .
-
-RUN npm install && npm run build
-
 FROM php:8.4-fpm
 
 WORKDIR /var/www/html
@@ -39,7 +31,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         zip \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=node /app .
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash \
+    && \. "$HOME/.nvm/nvm.sh" \
+    && nvm install 24 \
+    && npm install \
+    && npm run build
+
+COPY --from=vendor /app .
 
 RUN chown -R www-data:www-data \
     storage bootstrap/cache
