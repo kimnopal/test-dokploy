@@ -10,6 +10,14 @@ RUN composer install \
     --no-interaction \
     --optimize-autoloader
 
+FROM node:25-alpine AS node
+
+WORKDIR /app
+
+COPY --from=vendor /app .
+
+RUN npm install && npm run build
+
 FROM php:8.4-fpm
 
 WORKDIR /var/www/html
